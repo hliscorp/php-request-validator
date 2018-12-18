@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<xml>
+    <routes validators_path="validators">
+        <route url="index"/>
+        <route url="asd/(PAGE)" controller="IndexController" view="index">
+            <parameter name="PAGE" validator="PageValidator"/>
+        </route>
+        <route url="fgh/(NAME)/(PAGE)" method="POST">
+            <parameter name="NAME" validator="StringValidator"/>
+            <parameter name="PAGE" validator="PageValidator"/>
+            <parameter name="data" validator="StringValidator"/>
+        </route>
+    </routes>
+</xml>

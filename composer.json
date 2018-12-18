@@ -1,0 +1,15 @@
+{
+    "name": "lucinda/parameters-validator",
+    "type": "library",
+    "description": "Encapsulates path/request parameters validation",
+    "keywords": ["path parameters","request parameters", "validation"],
+    "homepage": "https://github.com/aherne/php-parameter-validator",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Lucian Popescu",
+            "email": "lucian.gabriel.popescu@gmail.com",
+            "role": "Developer"
+        }
+    ]
+}
