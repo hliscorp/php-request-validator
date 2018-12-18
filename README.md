@@ -1,4 +1,4 @@
-# parameter-validator
+# Request/Path Parameters Validator
 
 Performs request/path parameter validation via **Validator** class based on an XML file with following structure:
 
@@ -63,4 +63,4 @@ Where:
 
 ## Examples
 
-For examples how to use this micro-ap, check unit tests in *test* folder!
+For examples how to use this micro-api, check unit tests in *test* folder!
