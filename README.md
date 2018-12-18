@@ -1,6 +1,6 @@
 # Request/Path Parameters Validator
 
-Performs request/path parameter validation via **Validator** class based on an XML file with following structure:
+Performs request/path parameter validation via **Lucinda\ParameterValidator\Validator** class based on an XML file with following structure:
 
 ```
 <routes validators_path="{PATH}">
@@ -20,9 +20,8 @@ Where:
 - {IS_REQUIRED}: (optional) whether or not parameter is required (can be 0 or 1, 1 is assumed if attribute not set)
 - {VALIDATOR}: (mandatory) class name of **ParameterValidator** object that will perform value validation for that parameter
 
-All classes in this micro-API belong to *Lucinda\ParameterValidator* namespace!
 
-### Validator
+### Lucinda\ParameterValidator\Validator
 
 Class that locates requested route in XML file and applies parameters validation for matched route.
 
@@ -47,7 +46,9 @@ Public methods:
     - {NAME}: (key) parameter name
     - {VALUE}: (value) validation results for parameter value. Can be *null* if validation failed or *anything else* (string, number, object, boolean) if validation succeeded.
 
-### ParameterValidator
+Throws a **Lucinda\ParameterValidator\Exception** if XML structure is invalid or validation could not complete due to an error
+
+### Lucinda\ParameterValidator\ParameterValidator
 
 Interface that defines blueprints for parameter value validation via method:
 
@@ -59,7 +60,6 @@ Where:
 
 - {VALUE_TO_VALIDATE}: value to apply validation on
 - {VALIDATION_RESULT}: value that resulted after validation or NULL (if validation failed)
-
 
 ## Examples
 
