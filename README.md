@@ -72,6 +72,18 @@ Where:
 - {XML}: object of SimpleXMLElement that maps matching &lt;parameter&gt; tag, useful for developers to do further setups via custom attributes
 - {RESULTS}: pending results of parameter validation encapsulated by ResultsList object
 
+By virtue of extension, following class fields are available to ParameterValidator implementations:
+
+```
+protected $xml;
+protected $pendingResults;
+```
+
+Where:
+
+- $xml: object of SimpleXMLElement type that maps matching &lt;parameter&gt; tag, useful for developers to do further setups via custom attributes
+- $pendingResults: object of ResultsList type containing pending results of parameter validation
+
 ### Lucinda\ParameterValidator\ResultsList
 
 This class encapsulates validation results via methods:
