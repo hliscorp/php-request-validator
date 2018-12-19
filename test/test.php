@@ -1,23 +1,29 @@
 <?php
 require_once(dirname(__DIR__)."/src/Validator.php");
 
+// tests if no validation recipe exists for route requested
 $validator = new  Lucinda\ParameterValidator\Validator("parameters.xml", "aaa", "GET", []);
-echo __LINE__.": ".(sizeof($validator->getResults())==0?"Y":"N")."\n";
+echo __LINE__.": ".($validator->getResults()->hasPassed()?"Y":"N")."\n";
 
-$validator = new  Lucinda\ParameterValidator\Validator("parameters.xml", "asd/1", "GET", []);
-echo __LINE__.": ".(sizeof($validator->getResults())==1 && $validator->getResults()["PAGE"]===1?"Y":"N")."\n";
-
+// tests validation failing due to wrong request method
 try {
-    $validator = new  Lucinda\ParameterValidator\Validator("parameters.xml", "fgh/ddd/2", "GET", []);
+    $validator = new  Lucinda\ParameterValidator\Validator("parameters.xml", "fgh/(NAME)/(PAGE)", "GET", ["NAME"=>"ddd", "PAGE"=>2]);
     echo __LINE__.": N\n";
-} catch(Lucinda\ParameterValidator\Exception $e) {
-    echo __LINE__.": ".($e->getMessage()=="Method not supported: GET"?"Y":"N")."\n";
+} catch(Lucinda\ParameterValidator\MethodNotSupportedException $e) {
+    echo __LINE__.": Y\n";
 }
 
-$validator = new  Lucinda\ParameterValidator\Validator("parameters.xml", "fgh/ddd/2", "POST", []);
+// test validation ok
+$validator = new  Lucinda\ParameterValidator\Validator("parameters.xml", "fgh/(NAME)/(PAGE)", "POST", ["NAME"=>"ddd", "PAGE"=>2, "data"=>"xfg"]);
 $results = $validator->getResults();
-echo __LINE__.": ".(sizeof($results)==3 && $results["NAME"]==="ddd" && $results["PAGE"]===2 && $results["data"]===null?"Y":"N")."\n";
+echo __LINE__.": ".($results->hasPassed() && $results->get("NAME")==="ddd" && $results->get("PAGE")===2 && $results->get("data")==="xfg"?"Y":"N")."\n";
 
-$validator = new  Lucinda\ParameterValidator\Validator("parameters.xml", "fgh/ddd/2", "POST", ["data"=>"xfg"]);
+// test validation failed due to insufficient params
+$validator = new  Lucinda\ParameterValidator\Validator("parameters.xml", "fgh/(NAME)/(PAGE)", "POST", ["PAGE"=>2, "data"=>"xfg"]);
 $results = $validator->getResults();
-echo __LINE__.": ".(sizeof($results)==3 && $results["NAME"]==="ddd" && $results["PAGE"]===2 && $results["data"]==="xfg"?"Y":"N")."\n";
+echo __LINE__.": ".(!$results->hasPassed()?"Y":"N")."\n";
+
+// test validation ok with non-mandatory param not supplied
+$validator = new  Lucinda\ParameterValidator\Validator("parameters.xml", "asdf", "POST", ["x"=>1,"m"=>2]);
+$results = $validator->getResults();
+echo __LINE__.": ".($results->hasPassed()?"Y":"N")."\n";

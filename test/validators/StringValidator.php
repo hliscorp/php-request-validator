@@ -1,7 +1,7 @@
 <?php
-class StringValidator implements \Lucinda\ParameterValidator\ParameterValidator
+class StringValidator extends \Lucinda\ParameterValidator\ParameterValidator
 {
-    public function validate($value) {
+    public function validate($value, $previousDetections=array()) {
         return ($value?$value:null);
     }
 }

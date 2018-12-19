@@ -4,13 +4,26 @@ namespace Lucinda\ParameterValidator;
 /**
  * Parameter validation blueprint
  */
-interface ParameterValidator
+abstract class ParameterValidator
 {
+    private $xml;
+    private $pendingResults;
+
+    /**
+     * Constructor.
+     * @param \SimpleXMLElement $xml XML holding validator settings
+     * @param ResultsList $pendingResults Object that encapsulates pending results.
+     */
+    public function __construct(\SimpleXMLElement $xml, ResultsList $pendingResults) {
+        $this->xml = $xml;
+        $this->pendingResults = $pendingResults;
+    }
+
     /**
      * Performs value validation for parameter
      *
      * @param string $value Value to validate.
      * @return mixed Validation results (mixed if successful, null if not)
      */
-    function validate($value);
+    abstract protected function validate($value);
 }

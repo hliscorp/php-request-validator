@@ -1,8 +1,12 @@
 <?php
 namespace Lucinda\ParameterValidator;
 
-require_once("ParameterValidator.php");
+require_once("ResultsList.php");
+require_once("ResultStatus.php");
+require_once("Result.php");
 require_once("Exception.php");
+require_once("MethodNotSupportedException.php");
+require_once("ParameterValidator.php");
 
 /**
  * Performs path parameter and request parameter validation based on an XML file through ParameterValidator objects.
@@ -22,7 +26,7 @@ class Validator {
     private $validatorsPath;
     private $requestMethod;
     private $requestParameters;
-    private $results = [];
+    private $results;
 
     /**
      * Validator constructor.
@@ -40,6 +44,7 @@ class Validator {
         $this->simpleXMLElement = simplexml_load_file($xmlFilePath);
 
         $this->validatorsPath = $this->getValidatorsPath();
+        $this->results = new ResultsList();
         $this->match($routeURI);
     }
 
@@ -69,22 +74,7 @@ class Validator {
             if(empty($info['url'])) throw new Exception("Attribute 'url' is mandatory for 'route' tag");
             $url = (string) $info['url'];
             if($url == $routeURI) {
-                return $this->validate($info);
-            } else {
-                if(strpos($url, "(")!==false) {
-                    preg_match_all("/(\(([^)]+)\))/", $url, $matches);
-                    $names = $matches[2];
-                    $pattern = "/^".str_replace($matches[1],"([^\/]+)", str_replace("/","\/", $url))."$/";
-                    if(preg_match_all($pattern, $routeURI,$results)==1) {
-                        $pathParameters = [];
-                        foreach($results as $i=>$item) {
-                            if($i==0) continue;
-                            $pathParameters[$names[$i-1]]=$item[0];
-                        }
-                        return $this->validate($info, $pathParameters);
-                        break;
-                    }
-                }
+                $this->validate($info);
             }
         }
         // it is ok to have no matching route tag
@@ -97,31 +87,35 @@ class Validator {
      * @param string[string] $pathParameters Path parameters found for route
      * @throws Exception If XML is misconfigured or validation could not complete successfully.
      */
-    private function validate(\SimpleXMLElement $info, $pathParameters=[]) {
+    private function validate(\SimpleXMLElement $info) {
         $method = (string) $info["method"];
         if($method && $method!=$this->requestMethod) {
-            throw new Exception("Method not supported: ".$this->requestMethod);
+            throw new MethodNotSupportedException($this->requestMethod);
         }
         $tags = $info->parameter;
         $count = sizeof($tags);
         if($count == 0) return; // it is ok to have no rules set
-        $parameters = array_merge($this->requestParameters, $pathParameters);
         foreach($tags as $tag) {
             $name = (string) $tag["name"];
             $validator = (string) $tag["validator"];
             if(!$name || !$validator) throw new Exception("Attributes 'name' and 'validator' are mandatory for 'parameter' tags!");
             $mandatory = (string) $tag["required"];
-            if($mandatory !== "0" && !isset($parameters[$name])) {
-                $this->results[$name] = null; // parameter was required, but not provided, so validation has failed!
-            } else if($mandatory === "0" && !isset($parameters[$name])) {
-                continue; // parameter is not required and not provided, so skip
+            if($mandatory !== "0" && !isset($this->requestParameters[$name])) {
+                $this->results->set($name, new Result(null, ResultStatus::FAILED)); // parameter was required, but not provided, so validation has failed!
+            } else if($mandatory === "0" && !isset($this->requestParameters[$name])) {
+                $this->results->set($name, new Result(null, ResultStatus::BYPASSED)); // parameter is not required and not provided, so skip
             } else {
                 // parameter was sent, so perform validation
                 $validatorClass = $this->validatorsPath."/".$validator.".php";
                 if(!file_exists($validatorClass)) throw new Exception("Validator not found: ".$validatorClass);
                 require_once($validatorClass);
-                $object = new $validator();
-                $this->results[$name] = $object->validate($parameters[$name]);
+                $object = new $validator($tag, $this->results);
+                $result = $object->validate($this->requestParameters[$name]);
+                if($result) {
+                    $this->results->set($name, new Result($result, ResultStatus::PASSED));
+                } else {
+                    $this->results->set($name, new Result(null, ResultStatus::FAILED));
+                }
             }
         }
     }
@@ -129,7 +123,7 @@ class Validator {
     /**
      * Gets validation results
      *
-     * @return string[mixed] Array where key is parameter name and value is validation result (mixed if successful, null if not)
+     * @return ResultsList Object encapsulating validation results.
      */
     public function getResults() {
         return $this->results;
