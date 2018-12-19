@@ -39,18 +39,18 @@ Public methods:
     - {REQUEST_PARAMETERS}: GET/POST parameters sent along with route in client request
 - *getResults*: gets validation results. 
     ```
-    function getResults(): {NAME}[{VALUE}]
+    function getResults(): **ResultsList**
     ``` 
-    Returns an array where:
-    
-    - {NAME}: (key) parameter name
-    - {VALUE}: (value) validation results for parameter value. Can be *null* if validation failed or *anything else* (string, number, object, boolean) if validation succeeded.
 
-Throws a **Lucinda\ParameterValidator\Exception** if XML structure is invalid or validation could not complete due to an error
+Throws a **Lucinda\ParameterValidator\Exception** if XML structure is invalid or validation could not complete due to an error.
+
+Throws a **Lucinda\ParameterValidator\MethodNotSupportedException** if &lt;route&gt; has {METHOD} attribute that doesn't equal 
+request method used by client to access script.
+
 
 ### Lucinda\ParameterValidator\ParameterValidator
 
-Interface that defines blueprints for parameter value validation via method:
+Abstract class that defines blueprints for parameter value validation via method:
 
 ```
 function validate({VALUE_TO_VALIDATE}): {VALIDATION_RESULT}
@@ -60,6 +60,31 @@ Where:
 
 - {VALUE_TO_VALIDATE}: value to apply validation on
 - {VALIDATION_RESULT}: value that resulted after validation or NULL (if validation failed)
+
+Constructor method has following structure:
+
+```
+function __construct(SimpleXMLElement {XML}, ResultsList {RESULTS})
+```
+
+Where:
+
+- {XML}: object of SimpleXMLElement that maps matching &lt;parameter&gt; tag, useful for developers to do further setups via custom attributes
+- {RESULTS}: pending results of parameter validation encapsulated by ResultsList object
+
+### Lucinda\ParameterValidator\ResultsList
+
+This class encapsulates validation results via methods:
+
+```
+function get(string {NAME}): {RESULT_1}
+function hasPassed(): {RESULT_2}
+```
+Where:
+
+- {NAME}: name of parameter that was validated (eg: key of post/path parameter)
+- {RESULT_1}: value that resulted after value of above parameter was validated (can be mixed or null, if validation did not succeed) 
+- {RESULT_2}: whether or not validation has passed for all parameters
 
 ## Examples
 
