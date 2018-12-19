@@ -80,6 +80,7 @@ This class encapsulates validation results via methods:
 function get(string {NAME}): {RESULT_1}
 function hasPassed(): {RESULT_2}
 ```
+
 Where:
 
 - {NAME}: name of parameter that was validated (eg: key of post/path parameter)

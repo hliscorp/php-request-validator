@@ -6,8 +6,8 @@ namespace Lucinda\ParameterValidator;
  */
 abstract class ParameterValidator
 {
-    private $xml;
-    private $pendingResults;
+    protected $xml;
+    protected $pendingResults;
 
     /**
      * Constructor.
