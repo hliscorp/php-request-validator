@@ -1,5 +1,5 @@
 <?php
-namespace Lucinda\ParameterValidator;
+namespace Lucinda\RequestValidator;
 
 require_once("ResultsList.php");
 require_once("ResultStatus.php");

@@ -1,5 +1,5 @@
 {
-    "name": "lucinda/parameters-validator",
+    "name": "lucinda/request-validator",
     "type": "library",
     "description": "Encapsulates path/request parameters validation",
     "keywords": ["path parameters","request parameters", "validation"],

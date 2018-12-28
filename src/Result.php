@@ -1,9 +1,9 @@
 <?php
-namespace Lucinda\ParameterValidator;
+namespace Lucinda\RequestValidator;
 
 /**
  * Encapsulates result of a parameter validated
- * @package Lucinda\ParameterValidator
+ * @package Lucinda\RequestValidator
  */
 class Result
 {

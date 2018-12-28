@@ -1,5 +1,5 @@
 <?php
-namespace Lucinda\ParameterValidator;
+namespace Lucinda\RequestValidator;
 
 /**
  * Parameter validation blueprint

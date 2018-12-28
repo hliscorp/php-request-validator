@@ -1,5 +1,5 @@
 <?php
-namespace Lucinda\ParameterValidator;
+namespace Lucinda\RequestValidator;
 
 /**
  * Encapsulates results of parameters validation for a route as list of Result objects

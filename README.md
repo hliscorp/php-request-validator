@@ -1,6 +1,6 @@
 # Request/Path Parameters Validator
 
-Performs request/path parameter validation via **Lucinda\ParameterValidator\Validator** class based on an XML file with following structure:
+Performs request/path parameter validation via **Lucinda\RequestValidator\Validator** class based on an XML file with following structure:
 
 ```
 <routes validators_path="{PATH}">
@@ -21,7 +21,7 @@ Where:
 - {VALIDATOR}: (mandatory) class name of **ParameterValidator** object that will perform value validation for that parameter
 
 
-### Lucinda\ParameterValidator\Validator
+### Lucinda\RequestValidator\Validator
 
 Class that locates requested route in XML file and applies parameters validation for matched route.
 
@@ -42,13 +42,13 @@ Public methods:
     function getResults(): **ResultsList**
     ``` 
 
-Throws a **Lucinda\ParameterValidator\Exception** if XML structure is invalid or validation could not complete due to an error.
+Throws a **Lucinda\RequestValidator\Exception** if XML structure is invalid or validation could not complete due to an error.
 
-Throws a **Lucinda\ParameterValidator\MethodNotSupportedException** if &lt;route&gt; has {METHOD} attribute that doesn't equal 
+Throws a **Lucinda\RequestValidator\MethodNotSupportedException** if &lt;route&gt; has {METHOD} attribute that doesn't equal 
 request method used by client to access script.
 
 
-### Lucinda\ParameterValidator\ParameterValidator
+### Lucinda\RequestValidator\ParameterValidator
 
 Abstract class that defines blueprints for parameter value validation via method:
 
@@ -84,7 +84,7 @@ Where:
 - $xml: object of SimpleXMLElement type that maps matching &lt;parameter&gt; tag, useful for developers to do further setups via custom attributes
 - $pendingResults: object of ResultsList type containing pending results of parameter validation
 
-### Lucinda\ParameterValidator\ResultsList
+### Lucinda\RequestValidator\ResultsList
 
 This class encapsulates validation results via methods:
 
