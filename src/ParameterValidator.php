@@ -2,7 +2,7 @@
 namespace Lucinda\RequestValidator;
 
 /**
- * Parameter validation blueprint
+ * This class defines blueprint for parameter validation
  */
 abstract class ParameterValidator
 {
@@ -10,7 +10,8 @@ abstract class ParameterValidator
     protected $pendingResults;
 
     /**
-     * Constructor.
+     * Saves a pointer to XML to look at along with previous results for pending parameter validation.
+     * 
      * @param \SimpleXMLElement $xml XML holding validator settings
      * @param ResultsList $pendingResults Object that encapsulates pending results.
      */

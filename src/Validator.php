@@ -35,6 +35,7 @@ class Validator {
      * @param string $requestMethod HTTP request method used by client.
      * @param string $requestParameters Request parameters sent by client (eg: GET, POST)
      * @throws Exception If XML is misconfigured or validation could not complete successfully.
+     * @throws MethodNotSupportedException If route was called with unsupported HTTP verb.
      */
     public function __construct($xmlFilePath, $routeURI, $requestMethod, $requestParameters) {
         $this->requestMethod = strtoupper($requestMethod);
@@ -66,6 +67,7 @@ class Validator {
      *
      * @param string $routeURI Route requested by client
      * @throws Exception If XML is misconfigured or validation could not complete successfully.
+     * @throws MethodNotSupportedException If route was called with unsupported HTTP verb.
      */
     private function match($routeURI) {
         $routes = $this->simpleXMLElement->routes->route;
@@ -86,6 +88,7 @@ class Validator {
      * @param \SimpleXMLElement $info Object encapsulating route tag found.
      * @param string[string] $pathParameters Path parameters found for route
      * @throws Exception If XML is misconfigured or validation could not complete successfully.
+     * @throws MethodNotSupportedException If route was called with unsupported HTTP verb.
      */
     private function validate(\SimpleXMLElement $info) {
         $method = (string) $info["method"];

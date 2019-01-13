@@ -11,9 +11,10 @@ class Result
     private $payload;
 
     /**
-     * Result constructor.
+     * Saves result of ParameterValidator along with its status.
+     * 
      * @param mixed $payload Validation result value.
-     * @param ResultStatus $status Enum of status codes.
+     * @param ResultStatus $status One of constants in enum of validation status codes.
      */
     public function __construct($payload, $status) {
         $this->payload = $payload;
