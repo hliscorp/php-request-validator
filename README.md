@@ -1,4 +1,4 @@
-# Request/Path Parameters Validator
+# Request Validator
 
 Performs request/path parameter validation via **Lucinda\RequestValidator\Validator** class based on an XML file with following structure:
 
