@@ -26,5 +26,5 @@ abstract class ParameterValidator
      * @param string $value Value to validate.
      * @return mixed Validation results (mixed if successful, null if not)
      */
-    abstract protected function validate($value);
+    abstract public function validate($value);
 }
