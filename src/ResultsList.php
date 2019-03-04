@@ -12,10 +12,10 @@ class ResultsList
      * Gets validation result value for parameter
      *
      * @param string $key Parameter name
-     * @return mixed Validation result value
+     * @return mixed Validation result value or null if not found
      */
     public function get($key) {
-        return $this->results[$key]->getPayload();
+        return (isset($this->results[$key])?$this->results[$key]->getPayload():null);
     }
 
     /**
