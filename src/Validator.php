@@ -114,11 +114,7 @@ class Validator {
                 require_once($validatorClass);
                 $object = new $validator($tag, $this->results);
                 $result = $object->validate($this->requestParameters[$name]);
-                if($result) {
-                    $this->results->set($name, new Result($result, ResultStatus::PASSED));
-                } else {
-                    $this->results->set($name, new Result(null, ResultStatus::FAILED));
-                }
+                $this->results->set($name, new Result($result, ($result!==null?ResultStatus::PASSED:ResultStatus::FAILED)));
             }
         }
     }
