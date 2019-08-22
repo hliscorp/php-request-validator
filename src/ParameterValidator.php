@@ -11,11 +11,12 @@ abstract class ParameterValidator
 
     /**
      * Saves a pointer to XML to look at along with previous results for pending parameter validation.
-     * 
+     *
      * @param \SimpleXMLElement $xml XML holding validator settings
      * @param ResultsList $pendingResults Object that encapsulates pending results.
      */
-    public function __construct(\SimpleXMLElement $xml, ResultsList $pendingResults) {
+    public function __construct(\SimpleXMLElement $xml, ResultsList $pendingResults)
+    {
         $this->xml = $xml;
         $this->pendingResults = $pendingResults;
     }

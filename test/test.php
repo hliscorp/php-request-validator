@@ -9,7 +9,7 @@ echo __LINE__.": ".($validator->getResults()->hasPassed()?"Y":"N")."\n";
 try {
     $validator = new  Lucinda\RequestValidator\Validator("parameters.xml", "fgh/(NAME)/(PAGE)", "GET", ["NAME"=>"ddd", "PAGE"=>2]);
     echo __LINE__.": N\n";
-} catch(Lucinda\RequestValidator\MethodNotSupportedException $e) {
+} catch (Lucinda\RequestValidator\MethodNotSupportedException $e) {
     echo __LINE__.": Y\n";
 }
 

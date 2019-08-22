@@ -6,5 +6,4 @@ namespace Lucinda\RequestValidator;
  */
 class MethodNotSupportedException extends \Exception
 {
-
 }

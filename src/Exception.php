@@ -6,5 +6,4 @@ namespace Lucinda\RequestValidator;
  */
 class Exception extends \Exception
 {
-
 }
