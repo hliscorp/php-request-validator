@@ -1,12 +1,12 @@
 <?php
 namespace Lucinda\RequestValidator;
 
-require_once("ResultsList.php");
-require_once("ResultStatus.php");
-require_once("Result.php");
-require_once("Exception.php");
-require_once("MethodNotSupportedException.php");
-require_once("ParameterValidator.php");
+require("ResultsList.php");
+require("ResultStatus.php");
+require("Result.php");
+require("Exception.php");
+require("MethodNotSupportedException.php");
+require("ParameterValidator.php");
 
 /**
  * Performs path parameter and request parameter validation based on an XML file through ParameterValidator objects.
@@ -66,7 +66,7 @@ class Validator
             throw new Exception("Attribute 'validators_path' is mandatory for 'routes' tag!");
         }
         if (!file_exists($validatorsPath)) {
-            throw new Exception("No validators were defined!");
+            throw new Exception("Folder does not exist: ".$validatorsPath);
         }
         return $validatorsPath;
     }
@@ -132,7 +132,7 @@ class Validator
                 if (!file_exists($validatorClass)) {
                     throw new Exception("Validator not found: ".$validatorClass);
                 }
-                require_once($validatorClass);
+                require($validatorClass);
                 $object = new $validator($tag, $this->results);
                 $result = $object->validate($this->requestParameters[$name]);
                 $this->results->set($name, new Result($result, ($result!==null?ResultStatus::PASSED:ResultStatus::FAILED)));
