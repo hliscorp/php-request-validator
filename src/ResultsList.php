@@ -14,7 +14,7 @@ class ResultsList
      * @param string $key Parameter name
      * @return mixed Validation result value or null if not found
      */
-    public function get($key)
+    public function get(string $key)
     {
         return (isset($this->results[$key])?$this->results[$key]->getPayload():null);
     }
@@ -25,7 +25,7 @@ class ResultsList
      * @param string $key Parameter name
      * @param Result $result Validation result
      */
-    public function set($key, $result)
+    public function set(string $key, Result $result): void
     {
         $this->results[$key] = $result;
     }
@@ -35,9 +35,9 @@ class ResultsList
      *
      * @return boolean
      */
-    public function hasPassed()
+    public function hasPassed(): bool
     {
-        foreach ($this->results as $k=>$v) {
+        foreach ($this->results as $v) {
             if ($v->getStatus() == ResultStatus::FAILED) {
                 return false;
             }

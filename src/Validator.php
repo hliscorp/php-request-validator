@@ -1,13 +1,6 @@
 <?php
 namespace Lucinda\RequestValidator;
 
-require("ResultsList.php");
-require("ResultStatus.php");
-require("Result.php");
-require("Exception.php");
-require("MethodNotSupportedException.php");
-require("ParameterValidator.php");
-
 /**
  * Performs path parameter and request parameter validation based on an XML file through ParameterValidator objects.
  *
@@ -38,7 +31,7 @@ class Validator
      * @throws Exception If XML is misconfigured or validation could not complete successfully.
      * @throws MethodNotSupportedException If route was called with unsupported HTTP verb.
      */
-    public function __construct($xmlFilePath, $routeURI, $requestMethod, $requestParameters)
+    public function __construct(string $xmlFilePath, string $routeURI, string $requestMethod, string $requestParameters): void
     {
         $this->requestMethod = strtoupper($requestMethod);
         $this->requestParameters = $requestParameters;
@@ -59,7 +52,7 @@ class Validator
      * @return string Relative path to validator classes.
      * @throws Exception If XML is misconfigured or validation could not complete successfully.
      */
-    private function getValidatorsPath()
+    private function getValidatorsPath(): string
     {
         $validatorsPath = (string) $this->simpleXMLElement->routes["validators_path"];
         if (!$validatorsPath) {
@@ -78,7 +71,7 @@ class Validator
      * @throws Exception If XML is misconfigured or validation could not complete successfully.
      * @throws MethodNotSupportedException If route was called with unsupported HTTP verb.
      */
-    private function match($routeURI)
+    private function match(string $routeURI): void
     {
         $routes = $this->simpleXMLElement->routes->route;
         if (sizeof($routes) == 0) {
@@ -104,7 +97,7 @@ class Validator
      * @throws Exception If XML is misconfigured or validation could not complete successfully.
      * @throws MethodNotSupportedException If route was called with unsupported HTTP verb.
      */
-    private function validate(\SimpleXMLElement $info)
+    private function validate(\SimpleXMLElement $info): void
     {
         $method = (string) $info["method"];
         if ($method && $method!=$this->requestMethod) {
@@ -145,7 +138,7 @@ class Validator
      *
      * @return ResultsList Object encapsulating validation results.
      */
-    public function getResults()
+    public function getResults(): ResultsList
     {
         return $this->results;
     }

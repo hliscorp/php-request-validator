@@ -16,7 +16,7 @@ class Result
      * @param mixed $payload Validation result value.
      * @param ResultStatus $status One of constants in enum of validation status codes.
      */
-    public function __construct($payload, $status)
+    public function __construct($payload, ResultStatus $status): void
     {
         $this->payload = $payload;
         $this->status = $status;
@@ -27,7 +27,7 @@ class Result
      *
      * @return ResultStatus
      */
-    public function getStatus()
+    public function getStatus(): ResultStatus
     {
         return $this->status;
     }

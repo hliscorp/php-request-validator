@@ -5,6 +5,14 @@
     "keywords": ["path parameters","request parameters", "validation"],
     "homepage": "http://www.lucinda-framework.com/request-validation",
     "license": "MIT",
+    "require": {
+        "php": "^7.1"
+    },
+    "autoload": {
+    	"psr-4": {
+        	"Lucinda\\RequestValidator\\": "src/"
+    	}
+    },
     "authors": [
         {
             "name": "Lucian Popescu",
