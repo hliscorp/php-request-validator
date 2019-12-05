@@ -125,7 +125,7 @@ class Validator
                 if (!file_exists($validatorClass)) {
                     throw new Exception("Validator not found: ".$validatorClass);
                 }
-                require($validatorClass);
+                require_once($validatorClass);
                 $object = new $validator($tag, $this->results);
                 $result = $object->validate($this->requestParameters[$name]);
                 $this->results->set($name, new Result($result, ($result!==null?ResultStatus::PASSED:ResultStatus::FAILED)));
