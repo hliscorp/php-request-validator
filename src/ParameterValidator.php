@@ -15,7 +15,7 @@ abstract class ParameterValidator
      * @param \SimpleXMLElement $xml XML holding validator settings
      * @param ResultsList $pendingResults Object that encapsulates pending results.
      */
-    public function __construct(\SimpleXMLElement $xml, ResultsList $pendingResults): void
+    public function __construct(\SimpleXMLElement $xml, ResultsList $pendingResults)
     {
         $this->xml = $xml;
         $this->pendingResults = $pendingResults;

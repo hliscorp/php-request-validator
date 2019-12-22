@@ -31,7 +31,7 @@ class Validator
      * @throws Exception If XML is misconfigured or validation could not complete successfully.
      * @throws MethodNotSupportedException If route was called with unsupported HTTP verb.
      */
-    public function __construct(string $xmlFilePath, string $routeURI, string $requestMethod, string $requestParameters): void
+    public function __construct(string $xmlFilePath, string $routeURI, string $requestMethod, string $requestParameters)
     {
         $this->requestMethod = strtoupper($requestMethod);
         $this->requestParameters = $requestParameters;
