@@ -1,17 +1,22 @@
 {
-    "name": "lucinda/request-validator",
+    "name": "hlis/request-validator",
     "type": "library",
     "description": "Encapsulates path/request parameters validation",
-    "keywords": ["path parameters","request parameters", "validation"],
+    "keywords": [
+        "path parameters",
+        "request parameters",
+        "validation"
+    ],
     "homepage": "http://www.lucinda-framework.com/request-validation",
     "license": "MIT",
     "require": {
-        "php": "^7.1"
+        "php": "^7.1",
+        "ext-simplexml": "*"
     },
     "autoload": {
-    	"psr-4": {
-        	"Lucinda\\RequestValidator\\": "src/"
-    	}
+        "psr-4": {
+            "Lucinda\\RequestValidator\\": "src/"
+        }
     },
     "authors": [
         {
@@ -19,8 +24,5 @@
             "email": "lucian.gabriel.popescu@gmail.com",
             "role": "Developer"
         }
-    ],
-    "require": {
-        "ext-simplexml": "*"
-    }
+    ]
 }
