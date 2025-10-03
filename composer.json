@@ -1,8 +1,12 @@
 {
-    "name": "lucinda/request-validator",
+    "name": "hlis/request-validator",
     "type": "library",
     "description": "Encapsulates path/request parameters validation",
-    "keywords": ["path parameters","request parameters", "validation"],
+    "keywords": [
+        "path parameters",
+        "request parameters",
+        "validation"
+    ],
     "homepage": "http://www.lucinda-framework.com/request-validation",
     "license": "MIT",
     "authors": [
