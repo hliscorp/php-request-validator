@@ -1,5 +1,5 @@
 {
-    "name": "hlis/request-validator",
+    "name": "lucinda/request-validator",
     "type": "library",
     "description": "Encapsulates path/request parameters validation",
     "keywords": [
